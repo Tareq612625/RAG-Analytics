@@ -1,0 +1,143 @@
+<div class="db-explorer">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+      </svg>
+      <h2>Database</h2>
+    </div>
+
+    <div class="tables-list">
+      <h3>Tables</h3>
+      @for (table of tables; track table) {
+        <button
+          class="table-item"
+          [class.active]="selectedTable === table"
+          (click)="selectTable(table)">
+          <span class="table-icon">{{ getTableIcon(table) }}</span>
+          <span class="table-name">{{ table }}</span>
+        </button>
+      }
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    @if (error) {
+      <div class="error-banner">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <span>{{ error }}</span>
+      </div>
+    }
+
+    @if (selectedTable) {
+      <div class="table-header">
+        <div class="table-info">
+          <h1>
+            <span class="icon">{{ getTableIcon(selectedTable) }}</span>
+            {{ selectedTable }}
+          </h1>
+          @if (tableData) {
+            <span class="record-count">{{ tableData.total }} records</span>
+          }
+        </div>
+      </div>
+
+      @if (loading) {
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <span>Loading data...</span>
+        </div>
+      } @else if (tableData && tableData.data.length > 0) {
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                @for (col of getColumns(); track col) {
+                  <th>{{ col }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of tableData.data; track $index) {
+                <tr>
+                  @for (col of getColumns(); track col) {
+                    <td>{{ formatValue(row[col]) }}</td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        @if (totalPages > 1) {
+          <div class="pagination">
+            <button
+              class="page-btn"
+              [disabled]="currentPage === 1"
+              (click)="previousPage()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              Previous
+            </button>
+
+            <div class="page-numbers">
+              @if (currentPage > 3) {
+                <button class="page-num" (click)="goToPage(1)">1</button>
+                <span class="ellipsis">...</span>
+              }
+              @for (page of getVisiblePages(); track page) {
+                <button
+                  class="page-num"
+                  [class.active]="page === currentPage"
+                  (click)="goToPage(page)">
+                  {{ page }}
+                </button>
+              }
+              @if (currentPage < totalPages - 2) {
+                <span class="ellipsis">...</span>
+                <button class="page-num" (click)="goToPage(totalPages)">{{ totalPages }}</button>
+              }
+            </div>
+
+            <button
+              class="page-btn"
+              [disabled]="currentPage === totalPages"
+              (click)="nextPage()">
+              Next
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        }
+      } @else {
+        <div class="empty-state">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          <span>No data in this table</span>
+        </div>
+      }
+    } @else {
+      <div class="empty-state">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+          <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+        </svg>
+        <span>Select a table to view data</span>
+      </div>
+    }
+  </main>
+</div>

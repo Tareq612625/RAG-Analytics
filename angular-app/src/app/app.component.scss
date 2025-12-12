@@ -1,0 +1,97 @@
+// Variables
+$primary-color: #6366f1;
+$primary-dark: #4f46e5;
+$bg-dark: #0f172a;
+$bg-card: #1e293b;
+$bg-input: #334155;
+$text-primary: #f8fafc;
+$text-secondary: #94a3b8;
+$text-muted: #64748b;
+$border-color: #334155;
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: $bg-dark;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  height: 60px;
+  background: $bg-card;
+  border-bottom: 1px solid $border-color;
+  flex-shrink: 0;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: $text-primary;
+
+  svg {
+    color: $primary-color;
+  }
+
+  span {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    border-radius: 0.5rem;
+    color: $text-secondary;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+
+    &:hover {
+      background: $bg-input;
+      color: $text-primary;
+    }
+
+    &.active {
+      background: $primary-color;
+      color: white;
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+}
+
+.main-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .main-nav {
+    padding: 0 1rem;
+  }
+
+  .nav-brand span {
+    display: none;
+  }
+
+  .nav-links a {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+}
