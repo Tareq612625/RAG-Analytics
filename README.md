@@ -2,7 +2,24 @@
 
 A ChatGPT-style conversational analytics interface that lets you query your business ERP data using natural language. Built with **FastAPI**, **Angular**, and **RAG (Retrieval Augmented Generation)** technology.
 
-![RAG Analytics Demo](docs/demo.png)
+## 📸 Screenshots
+
+### Chat Interface
+*Ask questions in natural language and get instant analytics*
+
+![Chat Demo](docs/chat-demo.png)
+
+### SQL & Data Details
+*View the generated SQL queries and raw data tables*
+
+![Chat Details](docs/chat-details.png)
+
+### Database Explorer
+*Browse all your ERP tables with pagination*
+
+![Database Explorer](docs/database-explorer.png)
+
+---
 
 ## 🎯 Overview
 
