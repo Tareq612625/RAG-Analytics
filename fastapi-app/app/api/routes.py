@@ -6,8 +6,9 @@ from fastapi import APIRouter, HTTPException, Depends
 from typing import Optional, List
 import logging
 
-from app.models.schemas import QueryRequest, QueryResponse, ConversationHistory
+from app.models.schemas import QueryRequest, QueryResponse, ConversationHistory, ChatHistoryResponse
 from app.services.rag_pipeline import RAGPipeline, SimplePipeline, get_rag_pipeline, get_simple_pipeline
+from app.services.chat_history_service import get_chat_history_service
 from app.config import get_settings
 
 logger = logging.getLogger(__name__)
@@ -88,9 +89,63 @@ async def delete_conversation(conversation_id: str):
         Success message
     """
     pipeline = get_pipeline()
-    if pipeline.clear_conversation(conversation_id):
-        return {"message": "Conversation deleted successfully"}
-    raise HTTPException(status_code=404, detail="Conversation not found")
+    chat_history = get_chat_history_service()
+
+    # Clear from both in-memory and persistent storage
+    pipeline.clear_conversation(conversation_id)
+    chat_history.delete_session(conversation_id)
+
+    return {"message": "Conversation deleted successfully"}
+
+
+@router.get("/chat/history", response_model=ChatHistoryResponse)
+async def get_chat_history(days: int = 1):
+    """
+    Get chat history for the last N days.
+
+    Args:
+        days: Number of days to retrieve (default: 1)
+
+    Returns:
+        ChatHistoryResponse with list of sessions
+    """
+    chat_history = get_chat_history_service()
+    sessions = chat_history.get_sessions(days=days)
+    return ChatHistoryResponse(sessions=sessions, total=len(sessions))
+
+
+@router.get("/chat/history/{conversation_id}/messages")
+async def get_chat_messages(conversation_id: str):
+    """
+    Get all messages for a specific chat session.
+
+    Args:
+        conversation_id: The conversation ID
+
+    Returns:
+        List of messages
+    """
+    chat_history = get_chat_history_service()
+    messages = chat_history.get_session_messages(conversation_id)
+    return {"conversation_id": conversation_id, "messages": messages}
+
+
+@router.put("/chat/history/{conversation_id}/title")
+async def update_chat_title(conversation_id: str, title: str):
+    """
+    Update the title of a chat session.
+
+    Args:
+        conversation_id: The conversation ID
+        title: New title
+
+    Returns:
+        Success message
+    """
+    chat_history = get_chat_history_service()
+    if chat_history.update_session_title(conversation_id, title):
+        return {"message": "Title updated successfully"}
+    raise HTTPException(status_code=404, detail="Session not found")
 
 
 @router.get("/health")

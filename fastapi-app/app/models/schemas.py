@@ -10,8 +10,8 @@ class QueryRequest(BaseModel):
 
 class QueryResponse(BaseModel):
     refined_question: str
-    sql: str
-    table: List[dict]
+    sql: Optional[str] = None
+    table: List[dict] = []
     final_answer: str
     conversation_id: str
 
@@ -51,3 +51,19 @@ class BusinessRule(BaseModel):
     description: str
     rule_type: str
     conditions: str
+
+
+class ChatSession(BaseModel):
+    """Represents a single chat session with metadata."""
+    conversation_id: str
+    title: str  # First question or auto-generated title
+    created_at: datetime
+    updated_at: datetime
+    message_count: int = 0
+    first_question: Optional[str] = None
+
+
+class ChatHistoryResponse(BaseModel):
+    """Response model for chat history list."""
+    sessions: List[ChatSession]
+    total: int
