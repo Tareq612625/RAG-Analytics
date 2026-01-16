@@ -95,6 +95,4 @@ LLM_MODEL=llama-3.3-70b-versatile
 | GET | `/api/v1/database/tables` | List all tables |
 | GET | `/api/v1/database/tables/{name}` | Get table data |
 
-## License
 
-MIT
