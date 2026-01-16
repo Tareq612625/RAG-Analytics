@@ -1,0 +1,185 @@
+<mxfile host="app.diagrams.net" modified="2025-01-16T00:00:00.000Z" agent="draw.io" version="22.0.0" type="device">
+  <diagram name="RAG Pipeline Flow" id="rag-pipeline-flow">
+    <mxGraphModel dx="1000" dy="680" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="700" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Background -->
+        <mxCell id="bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;strokeWidth=2;opacity=50;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="820" height="580" as="geometry" />
+        </mxCell>
+
+        <!-- Title -->
+        <mxCell id="title" value="RAG Pipeline Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;fontColor=#1a1a1a;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="320" y="75" width="260" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Subtitle -->
+        <mxCell id="subtitle" value="Ask questions in plain English and get instant answers" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="300" y="105" width="300" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- User Question -->
+        <mxCell id="user-question" value="User Question" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4A90D9;strokeColor=#2171b5;fontSize=14;fontStyle=1;fontColor=#ffffff;shadow=1;glass=0;" vertex="1" parent="1">
+          <mxGeometry x="365" y="140" width="170" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="user-icon" value="" style="shape=image;html=1;verticalAlign=middle;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjAgMjF2LTJhNCA0IDAgMCAwLTQtNEg4YTQgNCAwIDAgMC00IDR2MiI+PC9wYXRoPjxjaXJjbGUgY3g9IjEyIiBjeT0iNyIgcj0iNCI+PC9jaXJjbGU+PC9zdmc+;" vertex="1" parent="1">
+          <mxGeometry x="375" y="153" width="24" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow 1 -->
+        <mxCell id="arrow1" value="" style="endArrow=classic;html=1;strokeWidth=3;strokeColor=#666666;shadow=1;" edge="1" parent="1" source="user-question" target="context-retrieval">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Step 1: Context Retrieval -->
+        <mxCell id="context-retrieval" value="1. Context Retrieval" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB347;strokeColor=#e69500;fontSize=13;fontStyle=1;fontColor=#ffffff;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="365" y="230" width="170" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- ChromaDB -->
+        <mxCell id="chromadb" value="ChromaDB&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;(Vector Store)&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#9673a6;strokeColor=#6c4f7c;fontSize=12;fontStyle=1;fontColor=#ffffff;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="220" width="120" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow to ChromaDB -->
+        <mxCell id="arrow-chromadb-right" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#9673a6;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="context-retrieval" target="chromadb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-chromadb-left" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#9673a6;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="chromadb" target="context-retrieval">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="600" y="270" as="sourcePoint" />
+            <mxPoint x="550" y="270" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="590" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Arrow 2 -->
+        <mxCell id="arrow2" value="" style="endArrow=classic;html=1;strokeWidth=3;strokeColor=#666666;shadow=1;" edge="1" parent="1" source="context-retrieval" target="sql-generation">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Step 2: SQL Generation -->
+        <mxCell id="sql-generation" value="2. SQL Generation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB347;strokeColor=#e69500;fontSize=13;fontStyle=1;fontColor=#ffffff;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="365" y="325" width="170" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- LLM -->
+        <mxCell id="llm" value="LLM&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;(Groq / Gemini / Ollama)&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#82b366;strokeColor=#5a8a47;fontSize=12;fontStyle=1;fontColor=#ffffff;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="320" width="140" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow to LLM -->
+        <mxCell id="arrow-llm-right" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#82b366;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="sql-generation" target="llm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-llm-left" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#82b366;dashed=1;" edge="1" parent="1" source="llm" target="sql-generation">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="590" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Arrow 3 -->
+        <mxCell id="arrow3" value="" style="endArrow=classic;html=1;strokeWidth=3;strokeColor=#666666;shadow=1;" edge="1" parent="1" source="sql-generation" target="execute-query">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Step 3: Execute Query -->
+        <mxCell id="execute-query" value="3. Execute Query" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB347;strokeColor=#e69500;fontSize=13;fontStyle=1;fontColor=#ffffff;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="365" y="420" width="170" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- SQLite Database -->
+        <mxCell id="sqlite" value="SQLite&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Database&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#b85450;strokeColor=#8c3c39;fontSize=12;fontStyle=1;fontColor=#ffffff;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="410" width="120" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow to SQLite -->
+        <mxCell id="arrow-sqlite-right" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#b85450;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="execute-query" target="sqlite">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-sqlite-left" value="" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#b85450;dashed=1;" edge="1" parent="1" source="sqlite" target="execute-query">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="590" y="465" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Arrow 4 -->
+        <mxCell id="arrow4" value="" style="endArrow=classic;html=1;strokeWidth=3;strokeColor=#666666;shadow=1;" edge="1" parent="1" source="execute-query" target="generate-response">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Step 4: Generate Response -->
+        <mxCell id="generate-response" value="4. Generate Response" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB347;strokeColor=#e69500;fontSize=13;fontStyle=1;fontColor=#ffffff;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="365" y="515" width="170" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Arrow 5 -->
+        <mxCell id="arrow5" value="" style="endArrow=classic;html=1;strokeWidth=3;strokeColor=#666666;shadow=1;" edge="1" parent="1" source="generate-response" target="final-answer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Final Answer -->
+        <mxCell id="final-answer" value="Final Answer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4A90D9;strokeColor=#2171b5;fontSize=14;fontStyle=1;fontColor=#ffffff;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="365" y="600" width="170" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Legend Box -->
+        <mxCell id="legend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cccccc;strokeWidth=1;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="140" width="180" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-title" value="Components" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="100" y="145" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Legend Items -->
+        <mxCell id="legend-step" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB347;strokeColor=#e69500;" vertex="1" parent="1">
+          <mxGeometry x="75" y="175" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-step-text" value="Pipeline Steps" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="115" y="175" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-vector" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#9673a6;strokeColor=#6c4f7c;" vertex="1" parent="1">
+          <mxGeometry x="75" y="205" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-vector-text" value="Vector Store" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="115" y="205" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-llm" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#82b366;strokeColor=#5a8a47;" vertex="1" parent="1">
+          <mxGeometry x="75" y="235" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-llm-text" value="LLM Provider" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="115" y="235" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend-db" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b85450;strokeColor=#8c3c39;" vertex="1" parent="1">
+          <mxGeometry x="75" y="265" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-db-text" value="Database" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="115" y="265" width="100" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Tech Stack Box -->
+        <mxCell id="tech-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cccccc;strokeWidth=1;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="320" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="tech-title" value="Tech Stack" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="100" y="325" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="tech-items" value="• FastAPI (Backend)&lt;br&gt;• Angular (Frontend)&lt;br&gt;• ChromaDB (Vectors)&lt;br&gt;• SQLite (Database)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="75" y="350" width="150" height="65" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
